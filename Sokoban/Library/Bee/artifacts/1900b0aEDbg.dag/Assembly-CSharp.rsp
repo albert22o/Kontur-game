@@ -427,9 +427,11 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/6000.0.60f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/6000.0.60f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/6000.0.60f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
+"Assets/GameManager.cs"
 "Assets/Scripts/BoxController.cs"
 "Assets/Scripts/GoalTrigger.cs"
 "Assets/Scripts/IObstacle.cs"
+"Assets/Scripts/IScoreModifier.cs"
 "Assets/Scripts/MoveableGridObject.cs"
 "Assets/Scripts/PlayerController.cs"
 -langversion:9.0

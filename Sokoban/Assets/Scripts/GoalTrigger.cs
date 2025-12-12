@@ -3,15 +3,19 @@ using UnityEngine;
 
 public class GoalScript : MonoBehaviour
 {
-    public Action<string> OnTriggerEntered;
-    public Action<string> OnTriggerExited;
+    public Action<IScoreModifier> OnTriggerEntered;
+    public Action<IScoreModifier> OnTriggerExited;
 
     private void OnTriggerEnter(Collider other)
     {
-        OnTriggerEntered?.Invoke(other.tag);
+        if (!other.TryGetComponent<IScoreModifier>(out var scoreModifier)) 
+            return;
+        OnTriggerEntered?.Invoke(scoreModifier);
     }
     private void OnTriggerExit(Collider other)
     {
-        OnTriggerExited?.Invoke(other.tag);
+        if (!other.TryGetComponent<IScoreModifier>(out var scoreModifier))
+            return;
+        OnTriggerExited?.Invoke(scoreModifier);
     }
 }
