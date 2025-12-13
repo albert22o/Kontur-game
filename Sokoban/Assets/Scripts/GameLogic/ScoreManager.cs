@@ -1,17 +1,22 @@
 using System;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
     public event Action OnWin;
 
     [SerializeField] 
     private string goalTag = "Goal";
+    private PlayerController player;
     private int goalCount;
     private int score;
 
     private void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        if (player == null)
+            Debug.LogError("PlayerController not found on the player object.");
+
         var goals = GameObject.FindGameObjectsWithTag(goalTag);
         goalCount = goals.Length;
         foreach (var goal in goals) 
@@ -36,7 +41,12 @@ public class GameManager : MonoBehaviour
     private void CheckWin()
     {
         if (score == goalCount)
-            OnWin?.Invoke();
+        {
+            if (player.IsMoving)
+                player.OnMoveEnd += () => OnWin?.Invoke();
+            else
+                OnWin?.Invoke();
+        }
     }
 
     private void OnDestroy()
