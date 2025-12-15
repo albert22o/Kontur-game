@@ -1,11 +1,9 @@
 using Assets.Scripts;
-using System;
-using System.Collections;
 using UnityEngine;
 
-public class BoxController : MoveableGridObject, IObstacle, IScoreModifier
+public class Box : MoveableGridObject, IPlayerObstacle, IScoreModifier
 {
-    public bool Interact(Vector3 direction)
+    public bool Interact(Vector3 direction, PlayerController playerController)
     {
         return Move(direction);
     }

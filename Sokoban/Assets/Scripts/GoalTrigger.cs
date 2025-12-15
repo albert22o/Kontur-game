@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GoalScript : MonoBehaviour
+public class GoalTrigger : MonoBehaviour
 {
     public Action<IScoreModifier> OnTriggerEntered;
     public Action<IScoreModifier> OnTriggerExited;

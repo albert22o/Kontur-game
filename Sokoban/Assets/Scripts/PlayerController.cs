@@ -2,33 +2,36 @@ using Assets.Scripts;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MoveableGridObject
 {
-    void Update()
+    public void OnMove(InputValue value)
     {
         if (IsMoving)
             return;
 
-        Vector3 direction = Vector3.zero;
-        if (Input.GetKey(KeyCode.LeftArrow))
-            direction = Vector3.left;
-        if (Input.GetKey(KeyCode.RightArrow))
-            direction = Vector3.right;
-        if (Input.GetKey(KeyCode.UpArrow))
-            direction = Vector3.forward;
-        if (Input.GetKey(KeyCode.DownArrow))
-            direction = Vector3.back;
+        var inputDirection = value.Get<Vector2>();
 
-        if (direction != Vector3.zero)
-            Move(direction);
+        if (inputDirection == Vector2.zero)
+            return;
+
+        Vector3 direction;
+
+        if (Mathf.Abs(inputDirection.x) > Mathf.Abs(inputDirection.y))
+            direction = inputDirection.x > 0 ? Vector3.right : Vector3.left;
+        else
+            direction = inputDirection.y > 0 ? Vector3.forward : Vector3.back;
+
+         Move(direction);
     }
+
 
     protected override bool HandleCollision(RaycastHit hit, Vector3 direction)
     {
-        if (hit.collider.TryGetComponent(out IObstacle box))
-            return box.Interact(direction);
+        if (hit.collider.TryGetComponent(out IPlayerObstacle box))
+            return box.Interact(direction, this);
 
-        return false; 
+        return false;
     }
 }

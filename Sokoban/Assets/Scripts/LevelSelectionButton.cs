@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelChoice : MonoBehaviour
+public class LevelSelectionButton : MonoBehaviour
 {
     [SerializeField]
     private string levelName;

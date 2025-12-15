@@ -21,8 +21,8 @@ public class ScoreManager : MonoBehaviour
         goalCount = goals.Length;
         foreach (var goal in goals) 
         {
-            goal.GetComponent<GoalScript>().OnTriggerEntered += HandleGoalReached;
-            goal.GetComponent<GoalScript>().OnTriggerExited += HandleGoalLost;
+            goal.GetComponent<GoalTrigger>().OnTriggerEntered += HandleGoalReached;
+            goal.GetComponent<GoalTrigger>().OnTriggerExited += HandleGoalLost;
         }
     }
 
@@ -54,8 +54,8 @@ public class ScoreManager : MonoBehaviour
         var goals = GameObject.FindGameObjectsWithTag(goalTag);
         foreach (var goal in goals)
         {
-            goal.GetComponent<GoalScript>().OnTriggerEntered -= HandleGoalReached;
-            goal.GetComponent<GoalScript>().OnTriggerExited -= HandleGoalLost;
+            goal.GetComponent<GoalTrigger>().OnTriggerEntered -= HandleGoalReached;
+            goal.GetComponent<GoalTrigger>().OnTriggerExited -= HandleGoalLost;
         }
     }
 }
