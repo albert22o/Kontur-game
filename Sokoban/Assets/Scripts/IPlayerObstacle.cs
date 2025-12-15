@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    /// <summary>
+    /// Представляет интерфейс для препятствий, с которыми может взаимодействовать игрок
+    /// </summary>
     public interface IPlayerObstacle
     {
         /// <summary>
