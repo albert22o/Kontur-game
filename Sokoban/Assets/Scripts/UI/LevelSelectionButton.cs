@@ -19,11 +19,19 @@ public class LevelSelectionButton : MonoBehaviour
 
     private void Start()
     {
+        if (levelNameText == null || bestScoreText == null || bestTimeText == null || playButton == null || gameManager == null)
+        {
+            Debug.LogError("One or more references are missing in LevelSelectionButton.");
+            return;
+        }
         levelNameText.text = levelName;
+
         var bestScore = PlayerPrefs.GetInt(levelName + "_BestTurns", -1);
-        var bestTime = PlayerPrefs.GetFloat(levelName + "_BestTime", -1f);
         bestScoreText.text = bestScore != -1 ? $"Best Turns: {bestScore}" : "Best Turns: N/A";
+
+        var bestTime = PlayerPrefs.GetFloat(levelName + "_BestTime", -1f);
         bestTimeText.text = bestTime != -1f ? $"Best Time: {bestTime:F2} s" : "Best Time: N/A";
+
         playButton.onClick.AddListener(LoadLevel);
     }
     public void LoadLevel()

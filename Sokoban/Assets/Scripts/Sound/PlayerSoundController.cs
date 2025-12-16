@@ -14,7 +14,10 @@ namespace Assets.Scripts.Sound
         private void Start()
         {
             if (audioSource == null)
-                return;
+            {
+                Debug.LogError("AudioSource reference is missing");
+                return; 
+            }
 
             audioSource.volume = PlayerPrefs.GetFloat("MasterVolume", 1f);
             var playerController = GetComponent<PlayerController>();

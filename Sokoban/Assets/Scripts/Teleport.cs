@@ -9,7 +9,10 @@ public class Teleport : MonoBehaviour, IPlayerObstacle
     public bool Interact(Vector3 direction, PlayerController playerController)
     {
         if (connectedTeleport == null)
+        {
+            Debug.LogError("Connected teleport is not assigned.");
             return false;
+        }
 
         TeleportPlayer(playerController);
         return false;
