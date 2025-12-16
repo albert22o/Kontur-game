@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerController))]
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]
