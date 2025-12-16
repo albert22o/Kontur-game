@@ -2,16 +2,16 @@
 using System;
 using UnityEngine;
 
-class Cloud : MonoBehaviour, IPlayerObstacle
+class Ice : MonoBehaviour, IPlayerObstacle
 {
     public event Action OnObjectDestroy;
     public bool Interact(Vector3 direction, PlayerController playerController)
     {
-        DestroyCloud();
+        DestroyObject();
         return true;
     }
 
-    private void DestroyCloud()
+    private void DestroyObject()
     {
         OnObjectDestroy?.Invoke();
         Destroy(gameObject);

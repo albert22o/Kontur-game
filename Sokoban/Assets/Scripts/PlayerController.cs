@@ -22,10 +22,14 @@ public class PlayerController : MoveableGridObject
             direction = inputDirection.x > 0 ? Vector3.right : Vector3.left;
         else
             direction = inputDirection.y > 0 ? Vector3.forward : Vector3.back;
-
-         Move(direction);
+        Move(direction);
     }
 
+    public override bool Move(Vector3 direction)
+    {
+        transform.rotation = Quaternion.LookRotation(direction);
+        return base.Move(direction);
+    }
 
     protected override bool HandleCollision(RaycastHit hit, Vector3 direction)
     {
