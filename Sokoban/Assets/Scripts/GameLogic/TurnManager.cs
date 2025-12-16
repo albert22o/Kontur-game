@@ -17,11 +17,11 @@ public class TurnManager : MonoBehaviour
     {
         playerController = GameObject.FindGameObjectWithTag(playerTag).GetComponent<PlayerController>();
         if (playerController == null)
-            Debug.LogError("PlayerController not found on the player object.");
+            Debug.LogError("PlayerController not found on the player object");
         playerController.OnMoveEnd += HandleTurnEnd;
 
         if (scoreManager == null)
-            Debug.LogError("ScoreManager reference is missing in TurnManager.");
+            Debug.LogError("ScoreManager reference is missing");
         scoreManager.OnWin += HandleWin;
     }
 

@@ -11,7 +11,10 @@ namespace Assets.Scripts.Sound
         private void Start()
         {
             if (volumeSlider == null)
+            {
+                Debug.LogError("Volume Slider reference is missing");
                 return;
+            }
 
             var currentVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
 
