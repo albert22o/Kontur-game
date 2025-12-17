@@ -2,10 +2,16 @@ using Assets.Scripts;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MoveableGridObject
 {
+    [SerializeField]
+    private UnityEvent OnMoveStartUnity;
+    [SerializeField]
+    private UnityEvent OnCantMoveUnity;
+
     public void OnMove(InputValue value)
     {
         if (IsMoving)
@@ -37,5 +43,11 @@ public class PlayerController : MoveableGridObject
             return box.Interact(direction, this);
 
         return false;
+    }
+
+    private void Start()
+    {
+        OnCantMove += () => OnCantMoveUnity?.Invoke();
+        OnMoveStart += () => OnMoveStartUnity?.Invoke();
     }
 }
