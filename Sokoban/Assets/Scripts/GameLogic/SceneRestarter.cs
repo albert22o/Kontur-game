@@ -24,4 +24,10 @@ public class SceneRestarter : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
+
+    private void Start()
+    {
+        var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player.OnDeath += ReloadCurrentScene;
+    }
 }

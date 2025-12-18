@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MoveableGridObject
+public class PlayerController : MoveableGridObject, IMortal
 {
+    public Action OnDeath { get; set; }
     [SerializeField]
     private UnityEvent OnMoveStartUnity;
     [SerializeField]
@@ -49,5 +50,11 @@ public class PlayerController : MoveableGridObject
     {
         OnCantMove += () => OnCantMoveUnity?.Invoke();
         OnMoveStart += () => OnMoveStartUnity?.Invoke();
+    }
+
+    public void Death()
+    {
+        OnDeath?.Invoke();
+        Destroy(gameObject);
     }
 }
