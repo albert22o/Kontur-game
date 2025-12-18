@@ -15,6 +15,11 @@ namespace Assets.Scripts
             playerController.Death();
             return true;
         }
+        public override bool Move(Vector3 direction)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+            return base.Move(direction);
+        }   
 
         protected override bool HandleCollision(RaycastHit hit, Vector3 direction)
         {
@@ -51,10 +56,12 @@ namespace Assets.Scripts
             }
         }
 
-        public override bool Move(Vector3 direction)
+        private void OnTriggerEnter(Collider other)
         {
-            transform.rotation = Quaternion.LookRotation(direction);
-            return base.Move(direction);
-        }   
+            if (other.TryGetComponent(out IMortal obstacle))
+            {
+                obstacle.Death();
+            }
+        }
     }
 }
