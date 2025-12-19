@@ -8,12 +8,12 @@ public class PlayerAnimationController : MonoBehaviour
     private void Start()
     {
         var playerController = GetComponent<PlayerController>();
-        playerController.OnMoveStart += () => HandleMove(true);
-        playerController.OnMoveEnd += () => HandleMove(false);
+        playerController.OnMoveStart += () => HandleMove(1);
+        playerController.OnMoveEnd += () => HandleMove(0);
     }
 
-    private void HandleMove(bool isMoving)
+    private void HandleMove(float speed)
     {
-        animator.SetBool("isMoving", isMoving);
+        animator.SetFloat("Speed", speed);
     }
 }
