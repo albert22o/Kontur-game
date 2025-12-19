@@ -5,15 +5,21 @@ public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]
     private Animator animator;
+    private Vector3 lastPosition;
+    private float currentSpeed;
+
     private void Start()
     {
-        var playerController = GetComponent<PlayerController>();
-        playerController.OnMoveStart += () => HandleMove(1);
-        playerController.OnMoveEnd += () => HandleMove(0);
+        lastPosition = transform.position;
     }
 
-    private void HandleMove(float speed)
+    private void Update()
     {
-        animator.SetFloat("Speed", speed);
+        float distance = Vector3.Distance(transform.position, lastPosition);
+        currentSpeed = distance / Time.deltaTime;
+
+        animator.SetFloat("Speed", currentSpeed);
+
+        lastPosition = transform.position;
     }
 }
