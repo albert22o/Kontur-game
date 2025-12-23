@@ -6,6 +6,10 @@ public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]
     private Animator animator;
+
+    [SerializeField, Range(0f, 1f)]
+    private float animationDampTime = 0.1f;
+
     private Vector3 lastPosition;
     private float currentSpeedX;
     private float currentSpeedZ;
@@ -19,11 +23,12 @@ public class PlayerAnimationController : MonoBehaviour
     {
         float distanceX = lastPosition.x - transform.position.x;
         float distanceZ = lastPosition.z - transform.position.z;
+
         currentSpeedX = distanceX / Time.deltaTime;
         currentSpeedZ = distanceZ / Time.deltaTime;
 
-        animator.SetFloat("SpeedX", currentSpeedX);
-        animator.SetFloat("SpeedZ", currentSpeedZ);
+        animator.SetFloat("SpeedX", currentSpeedX, animationDampTime, Time.deltaTime);
+        animator.SetFloat("SpeedZ", currentSpeedZ, animationDampTime, Time.deltaTime);
 
         lastPosition = transform.position;
     }
