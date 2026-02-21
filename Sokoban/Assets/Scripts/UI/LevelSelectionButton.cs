@@ -7,8 +7,6 @@ public class LevelSelectionButton : MonoBehaviour
     [SerializeField]
     private string levelName;
     [SerializeField]
-    private GameManager gameManager;
-    [SerializeField]
     private TextMeshProUGUI levelNameText;
     [SerializeField]
     private TextMeshProUGUI bestScoreText;
@@ -19,7 +17,7 @@ public class LevelSelectionButton : MonoBehaviour
 
     private void Start()
     {
-        if (levelNameText == null || bestScoreText == null || bestTimeText == null || playButton == null || gameManager == null)
+        if (levelNameText == null || bestScoreText == null || bestTimeText == null || playButton == null)
         {
             Debug.LogError("One or more references are missing in LevelSelectionButton.");
             return;
@@ -36,6 +34,6 @@ public class LevelSelectionButton : MonoBehaviour
     }
     public void LoadLevel()
     {
-        gameManager.ChangeSceneByName(levelName);
+        SceneLoader.ChangeSceneByName(levelName);
     }
 }

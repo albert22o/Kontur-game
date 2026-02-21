@@ -19,5 +19,17 @@ namespace Assets.Scripts.UI
                 section.gameObject.SetActive(false);
             gameObject.SetActive(true);
         }
-    }
-}
+
+        public void QuitGame()
+        {
+            if (Application.isEditor)
+            {
+                UnityEditor.EditorApplication.isPlaying = false;
+                return;
+            }
+            Time.timeScale = 1f; // Resume the game
+            Application.Quit();
+        }
+
+
+    } }
