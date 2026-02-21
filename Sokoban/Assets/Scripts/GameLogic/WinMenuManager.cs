@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class MenuManager : MonoBehaviour
+    public class WinMenuManager : MonoBehaviour
     {
         [SerializeField]
         private GameObject winPanel;
