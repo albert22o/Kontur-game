@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    public int TurnCount => turnCount;
     [SerializeField]
     private string playerTag = "Player";
     [SerializeField]
