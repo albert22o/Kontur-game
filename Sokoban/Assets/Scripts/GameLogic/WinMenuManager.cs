@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -22,6 +25,8 @@ namespace Assets.Scripts
         private GameObject starPrefab;
         [SerializeField]
         private Transform starContainer;
+        [SerializeField]
+        private Button NextLevelButton;
 
         private void Start()
         {
@@ -44,6 +49,23 @@ namespace Assets.Scripts
             {
                 StartCoroutine(ShowStars(1));
             }
+
+            var currentName = SceneManager.GetActiveScene().name;
+
+            var numberString = Regex.Match(currentName, @"\d+").Value;
+            var nextLevelname = "";
+            if (int.TryParse(numberString, out int currentLevel))
+            {
+                var nextLevel = currentLevel + 1;
+                if (nextLevel > 3) 
+                {
+                    NextLevelButton.gameObject.SetActive(false);
+                    return;
+                }
+                nextLevelname = currentName.Replace(numberString, nextLevel.ToString());
+            }
+            PlayerPrefs.SetInt(nextLevelname + "_IsLocked", 0);
+            NextLevelButton.onClick.AddListener(() => SceneLoader.ChangeSceneByName(nextLevelname));
         }
 
         private IEnumerator ShowStars(int v)
@@ -69,6 +91,8 @@ namespace Assets.Scripts
             }
             transform.localScale = Vector3.one;
         }
+
+
 
         public void ExitToMainMenu()
         {

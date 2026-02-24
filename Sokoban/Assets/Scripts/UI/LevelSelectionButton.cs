@@ -23,6 +23,8 @@ public class LevelSelectionButton : MonoBehaviour
             return;
         }
         levelNameText.text = levelName;
+        var isLocked = PlayerPrefs.GetInt(levelName + "_IsLocked", 1) == 1;
+        playButton.interactable = !isLocked;
 
         var bestScore = PlayerPrefs.GetInt(levelName + "_BestTurns", -1);
         bestScoreText.text = bestScore != -1 ? $"Best Turns: {bestScore}" : "Best Turns: N/A";
