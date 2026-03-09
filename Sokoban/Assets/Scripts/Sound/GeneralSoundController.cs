@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Assets.Scripts.Sound
 {
@@ -18,13 +19,14 @@ namespace Assets.Scripts.Sound
                 return;
             }
             if (audioMixer.GetFloat(groupName,out var value))
-                volumeSlider.value = value + 80;
+                volumeSlider.value = Mathf.Pow(10, value / 20);
             volumeSlider.onValueChanged.AddListener(SetVolume);
         }
 
-        private void SetVolume(float newVolume)
+        private void SetVolume(float sliderValue)
         {
-            audioMixer.SetFloat(groupName, newVolume - 80);
+            float dbValue = Mathf.Log10(Mathf.Max(0.0001f, sliderValue)) * 20;
+            audioMixer.SetFloat(groupName, dbValue);
         }
     }
 }
