@@ -15,7 +15,6 @@ namespace Assets.Scripts.Sound
                 return; 
             }
 
-            audioSource.volume = PlayerPrefs.GetFloat("MasterVolume", 1f);
             var playerController = GetComponent<PlayerController>();
         }
 

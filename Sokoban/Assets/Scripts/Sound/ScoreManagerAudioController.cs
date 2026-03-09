@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Sound
 {
@@ -6,6 +7,8 @@ namespace Assets.Scripts.Sound
     {
         [SerializeField]
         private AudioClip winSound;
+        [SerializeField]
+        private AudioClip loseSound;
         [SerializeField]
         private AudioSource audioSource;
         [SerializeField]
@@ -18,7 +21,6 @@ namespace Assets.Scripts.Sound
                 Debug.LogError("AudioSource reference is missing");
                 return;
             }
-            audioSource.volume = PlayerPrefs.GetFloat("MasterVolume", 1f);
 
             if (scoreManager == null)
             {
@@ -26,6 +28,13 @@ namespace Assets.Scripts.Sound
                 return;
             }
             scoreManager.OnWin += PlayWinSound;
+            var player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            player.OnDeath += PlayLoseSound;
+        }
+
+        private void PlayLoseSound()
+        {
+            audioSource.PlayOneShot(loseSound);
         }
 
         private void PlayWinSound()

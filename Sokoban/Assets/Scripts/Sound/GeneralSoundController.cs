@@ -8,6 +8,8 @@ namespace Assets.Scripts.Sound
     {
         [SerializeField]
         private Slider volumeSlider;
+        [SerializeField] private AudioMixer audioMixer;
+        [SerializeField] private string groupName;
         private void Start()
         {
             if (volumeSlider == null)
@@ -15,20 +17,14 @@ namespace Assets.Scripts.Sound
                 Debug.LogError("Volume Slider reference is missing");
                 return;
             }
-
-            var currentVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
-
-            volumeSlider.value = currentVolume;
-
+            if (audioMixer.GetFloat(groupName,out var value))
+                volumeSlider.value = value + 80;
             volumeSlider.onValueChanged.AddListener(SetVolume);
         }
 
         private void SetVolume(float newVolume)
         {
-            if (newVolume <= 0)
-                PlayerPrefs.SetFloat("MasterVolume", -80f);
-            else
-                PlayerPrefs.SetFloat("MasterVolume", newVolume);
+            audioMixer.SetFloat(groupName, newVolume - 80);
         }
     }
 }
