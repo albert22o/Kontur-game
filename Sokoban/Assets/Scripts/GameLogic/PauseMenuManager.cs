@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
@@ -13,12 +13,24 @@ public class PauseMenuManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
             ReloadCurrentScene();
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseGame();
             ShowPauseMenu();
+        }
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
     }
 
     public void ShowPauseMenu()
     {
-        Time.timeScale = 0f; // Pause the game
         pauseMenuUI.SetActive(true);
     }
 
@@ -31,12 +43,12 @@ public class PauseMenuManager : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
-        Time.timeScale = 1f; // Resume the game
+        ResumeGame();
     }
 
-    public void ResumeGame()
+    public void GameResumePressed()
     {
-        Time.timeScale = 1f; // Resume the game
+        ResumeGame();
         pauseMenuUI.SetActive(false);
     }
 
