@@ -59,7 +59,7 @@ public class PauseMenuManager : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
             return;
         }
-        Time.timeScale = 1f; // Resume the game
+        ResumeGame(); 
         Application.Quit();
     }
 }

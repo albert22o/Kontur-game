@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,14 +28,23 @@ namespace Assets.Scripts
         private Transform starContainer;
         [SerializeField]
         private Button NextLevelButton;
+        [SerializeField]
+        GameObject winCutscene;
+
 
         private void Start()
         {
             scoreManager.OnWin += HandleWin;
         }
 
-        private void HandleWin()
+        private async void HandleWin()
         {
+            if (winCutscene != null)
+            {
+                winCutscene.SetActive(true);
+            }
+
+            await Task.Delay(8300);
             winPanel.SetActive(true);
             Time.timeScale = 0f;
             if (turnManager.TurnCount <= goodTurnThreshold)
