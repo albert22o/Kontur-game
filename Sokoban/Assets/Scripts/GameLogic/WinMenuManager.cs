@@ -28,8 +28,6 @@ namespace Assets.Scripts
         private Transform starContainer;
         [SerializeField]
         private Button NextLevelButton;
-        [SerializeField]
-        GameObject winCutscene;
 
 
         private void Start()
@@ -39,12 +37,6 @@ namespace Assets.Scripts
 
         private async void HandleWin()
         {
-            if (winCutscene != null)
-            {
-                winCutscene.SetActive(true);
-            }
-
-            await Task.Delay(8300);
             winPanel.SetActive(true);
             Time.timeScale = 0f;
             if (turnManager.TurnCount <= goodTurnThreshold)

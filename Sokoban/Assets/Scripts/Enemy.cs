@@ -7,6 +7,7 @@ namespace Assets.Scripts
 {
     class Enemy : MoveableGridObject, IPlayerObstacle
     {
+        [SerializeField] private bool horizontalMovement = false;
         private StateManager stateManager;
         private PatrolState moveForward;
         private PatrolState moveBackward;
@@ -34,8 +35,16 @@ namespace Assets.Scripts
         private void Start()
         {
             stateManager = new StateManager();
-            moveForward = new PatrolState(this, Vector3.forward);
-            moveBackward = new PatrolState(this, Vector3.back);
+            if (horizontalMovement) 
+            {
+                moveForward = new PatrolState(this, Vector3.left);
+                moveBackward = new PatrolState(this, -Vector3.left);
+            }
+            else
+            {
+                moveForward = new PatrolState(this, Vector3.forward);
+                moveBackward = new PatrolState(this, Vector3.back);
+            }
             stateManager.SetState(moveForward);
             StartCoroutine(UpdateStates());
         }
@@ -47,7 +56,8 @@ namespace Assets.Scripts
                 var directionVector = ((PatrolState)stateManager.GetState()).DirectionToMove;
                 if (!stateManager.Update())
                 {
-                    if (directionVector == Vector3.forward)
+                    if (directionVector == Vector3.forward
+                        || directionVector == Vector3.left)
                         stateManager.SetState(moveBackward);
                     else
                         stateManager.SetState(moveForward);
